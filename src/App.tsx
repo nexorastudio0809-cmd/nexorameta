@@ -4,7 +4,7 @@ import {
   ChevronDown, ChevronUp, Check, Calendar, Clock, Phone, 
   Mail, MessageCircle, ArrowRight, X, Play, Award, CheckCircle2,
   Users, Building, Utensils, HeartPulse, Sparkles, Dumbbell, 
-  GraduationCap, Hotel, Briefcase
+  GraduationCap, Hotel, Briefcase, Menu
 } from 'lucide-react';
 
 // --- LOGO COMPONENT ---
@@ -102,6 +102,7 @@ export function NexoraLogo({ showText = true, size = "md" }: { showText?: boolea
 export default function App() {
   // Modal Booking Wizard State
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [bookingStep, setBookingStep] = useState(1);
   const [selectedPlan, setSelectedPlan] = useState<string>("Lead Engine Pro");
   const [formData, setFormData] = useState({
@@ -337,9 +338,9 @@ export default function App() {
             <a href="#faq" className="hover:text-white transition-colors duration-200">FAQ</a>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             {scheduledCalls.length > 0 && (
-              <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#236EC1]/10 text-[#3B82F6] border border-[#236EC1]/20">
+              <span className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#236EC1]/10 text-[#3B82F6] border border-[#236EC1]/20">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                 1 Call Scheduled
               </span>
@@ -347,12 +348,70 @@ export default function App() {
             <button 
               id="nav-cta-btn"
               onClick={() => { setSelectedPlan("Lead Engine Pro"); setBookingStep(1); setIsModalOpen(true); }}
-              className="px-5 py-2 rounded-full text-xs sm:text-sm font-semibold text-white btn-primary flex items-center gap-2 cursor-pointer"
+              className="px-3.5 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold text-white btn-primary flex items-center gap-2 cursor-pointer whitespace-nowrap"
             >
-              Book Strategy Call
+              <span className="hidden sm:inline">Book Strategy Call</span>
+              <span className="sm:hidden">Book Call</span>
+            </button>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              aria-label="Toggle navigation menu"
+            >
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
+
+        {/* Mobile Navigation Dropdown Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-[#050505]/95 backdrop-blur-xl border-t border-b border-white/5 py-4 px-6 space-y-1 animate-fade-in">
+            <a 
+              href="#why-us" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-base font-semibold text-white/75 hover:text-[#3B82F6] py-2.5 transition-colors border-b border-white/5"
+            >
+              Why Us
+            </a>
+            <a 
+              href="#how-it-works" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-base font-semibold text-white/75 hover:text-[#3B82F6] py-2.5 transition-colors border-b border-white/5"
+            >
+              How It Works
+            </a>
+            <a 
+              href="#services" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-base font-semibold text-white/75 hover:text-[#3B82F6] py-2.5 transition-colors border-b border-white/5"
+            >
+              Services
+            </a>
+            <a 
+              href="#pricing" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-base font-semibold text-white/75 hover:text-[#3B82F6] py-2.5 transition-colors border-b border-white/5"
+            >
+              Pricing
+            </a>
+            <a 
+              href="#industries" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-base font-semibold text-white/75 hover:text-[#3B82F6] py-2.5 transition-colors border-b border-white/5"
+            >
+              Industries
+            </a>
+            <a 
+              href="#faq" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-base font-semibold text-white/75 hover:text-[#3B82F6] py-2.5 transition-colors"
+            >
+              FAQ
+            </a>
+          </div>
+        )}
       </nav>
 
       {/* --- MAIN PAGE WRAPPER --- */}
@@ -416,16 +475,16 @@ export default function App() {
               {/* Internal glow aura */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#236EC1]/5 to-transparent pointer-events-none"></div>
               
-              <div className="relative bg-[#0D0D0D]/95 rounded-[23px] p-6 border border-white/5">
+              <div className="relative bg-[#0D0D0D]/95 rounded-[23px] p-4 sm:p-6 border border-white/5">
                 {/* Dashboard Header Bar */}
-                <div className="flex items-center justify-between pb-6 mb-6 border-b border-white/5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/5">
                   <div className="flex items-center gap-3">
                     <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
                     <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
                     <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
-                    <span className="text-xs text-white/40 font-mono ml-2">nexora_studio_dashboard_v2.ts</span>
+                    <span className="text-xs text-white/40 font-mono ml-2 truncate max-w-[150px] sm:max-w-none">nexora_studio_dashboard_v2.ts</span>
                   </div>
-                  <div className="flex bg-[#161616] rounded-lg p-0.5 text-[11px] font-semibold text-white/60">
+                  <div className="flex bg-[#161616] rounded-lg p-0.5 text-[11px] font-semibold text-white/60 self-start sm:self-auto">
                     {(['7d', '30d', 'all'] as const).map((interval) => (
                       <button
                         key={interval}
@@ -443,23 +502,23 @@ export default function App() {
                 </div>
 
                 {/* KPI Metrics inside Dashboard */}
-                <div className="grid grid-cols-3 gap-3 mb-6">
-                  <div className="bg-[#141414] rounded-xl p-3 border border-white/5">
-                    <span className="text-[10px] text-white/40 block mb-1">Total Leads</span>
-                    <span className="text-lg font-bold text-white transition-all">
+                <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6">
+                  <div className="bg-[#141414] rounded-xl p-2 sm:p-3 border border-white/5">
+                    <span className="text-[9px] sm:text-[10px] text-white/40 block mb-1">Total Leads</span>
+                    <span className="text-sm sm:text-lg font-bold text-white transition-all">
                       {chartData[chartInterval].total}
                     </span>
-                    <span className="text-[9px] text-emerald-500 block mt-0.5 font-medium">↑ 18.5% today</span>
+                    <span className="text-[8px] sm:text-[9px] text-emerald-500 block mt-0.5 font-medium">↑ 18.5% today</span>
                   </div>
-                  <div className="bg-[#141414] rounded-xl p-3 border border-white/5">
-                    <span className="text-[10px] text-white/40 block mb-1">Avg Cost / Lead</span>
-                    <span className="text-lg font-bold text-white">₹84</span>
-                    <span className="text-[9px] text-sky-400 block mt-0.5 font-medium">Meta Lowest Avg</span>
+                  <div className="bg-[#141414] rounded-xl p-2 sm:p-3 border border-white/5">
+                    <span className="text-[9px] sm:text-[10px] text-white/40 block mb-1">Avg Cost/Lead</span>
+                    <span className="text-sm sm:text-lg font-bold text-white">₹84</span>
+                    <span className="text-[8px] sm:text-[9px] text-sky-400 block mt-0.5 font-medium">Meta Lowest Avg</span>
                   </div>
-                  <div className="bg-[#141414] rounded-xl p-3 border border-white/5">
-                    <span className="text-[10px] text-white/40 block mb-1">Ad Quality</span>
-                    <span className="text-lg font-bold text-[#3B82F6]">9.4<span className="text-xs text-white/40">/10</span></span>
-                    <span className="text-[9px] text-emerald-500 block mt-0.5 font-medium">Excellent Rank</span>
+                  <div className="bg-[#141414] rounded-xl p-2 sm:p-3 border border-white/5">
+                    <span className="text-[9px] sm:text-[10px] text-white/40 block mb-1">Ad Quality</span>
+                    <span className="text-sm sm:text-lg font-bold text-[#3B82F6]">9.4<span className="text-[10px] text-white/40">/10</span></span>
+                    <span className="text-[8px] sm:text-[9px] text-emerald-500 block mt-0.5 font-medium">Excellent Rank</span>
                   </div>
                 </div>
 
@@ -570,12 +629,12 @@ export default function App() {
                 </div>
 
                 {/* Direct Connect WhatsApp badge */}
-                <div className="mt-4 flex items-center justify-between text-xs text-white/50 bg-[#1A1A1A]/30 p-2.5 rounded-lg border border-white/5">
-                  <span className="flex items-center gap-1.5">
-                    <MessageSquare className="w-3.5 h-3.5 text-emerald-500" />
-                    Automated lead forwarding to CRM & WhatsApp active.
+                <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-white/50 bg-[#1A1A1A]/30 p-2.5 rounded-lg border border-white/5">
+                  <span className="flex items-center gap-1.5 leading-tight">
+                    <MessageSquare className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
+                    Automated lead forwarding active.
                   </span>
-                  <span className="text-[10px] font-bold text-emerald-500 tracking-wide uppercase">0.4s Latency</span>
+                  <span className="text-[10px] font-bold text-emerald-500 tracking-wide uppercase self-start sm:self-auto">0.4s Latency</span>
                 </div>
 
               </div>
@@ -740,16 +799,24 @@ export default function App() {
               ></div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 relative z-10">
+            {/* Scroll indicators on mobile */}
+            <div className="flex lg:hidden justify-between items-center mb-4 text-xs text-white/40 px-1">
+              <span>Swipe steps left/right</span>
+              <span className="font-mono text-[10px] bg-white/5 px-2 py-0.5 rounded">
+                Step {activeStep + 1} of 6
+              </span>
+            </div>
+
+            <div className="flex lg:grid lg:grid-cols-6 gap-4 overflow-x-auto pb-4 lg:pb-0 scrollbar-none snap-x snap-mandatory lg:overflow-visible relative z-10">
               {steps.map((step, idx) => {
                 const isSelected = activeStep === idx;
                 return (
                   <button
                     key={idx}
                     onClick={() => setActiveStep(idx)}
-                    className={`text-left p-6 rounded-2xl border transition-all duration-300 flex flex-col justify-between h-48 cursor-pointer relative overflow-hidden group ${
+                    className={`text-left p-5 lg:p-6 rounded-2xl border transition-all duration-300 flex flex-col justify-between h-36 lg:h-48 cursor-pointer relative overflow-hidden group snap-center flex-shrink-0 w-[240px] sm:w-[280px] lg:w-auto ${
                       isSelected 
-                        ? 'bg-[#111111] border-[#236EC1] shadow-[0_0_25px_rgba(35,110,193,0.15)] scale-[1.02]' 
+                        ? 'bg-[#111111] border-[#236EC1] shadow-[0_0_25px_rgba(35,110,193,0.15)] scale-[1.01]' 
                         : 'bg-[#0B0B0B]/90 border-white/5 hover:border-white/20'
                     }`}
                   >
@@ -759,16 +826,16 @@ export default function App() {
                     )}
                     
                     <div>
-                      <span className={`text-xs font-mono font-bold block mb-2 ${
+                      <span className={`text-xs font-mono font-bold block mb-1.5 ${
                         isSelected ? 'text-[#3B82F6]' : 'text-white/40'
                       }`}>
                         STEP {step.num}
                       </span>
-                      <h3 className="text-base font-bold text-white mb-2 tracking-tight group-hover:text-[#3B82F6] transition-colors">
+                      <h3 className="text-sm lg:text-base font-bold text-white mb-1.5 tracking-tight group-hover:text-[#3B82F6] transition-colors leading-snug">
                         {step.title}
                       </h3>
                     </div>
-                    <p className="text-[11px] text-white/50 leading-relaxed line-clamp-3">
+                    <p className="text-[11px] text-white/50 leading-relaxed line-clamp-2 lg:line-clamp-3">
                       {step.desc}
                     </p>
                   </button>
@@ -1080,7 +1147,7 @@ export default function App() {
           <div className="grid lg:grid-cols-12 gap-8 items-stretch">
             
             {/* Left Bento Selector */}
-            <div className="lg:col-span-5 grid grid-cols-2 gap-3">
+            <div className="lg:col-span-5 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-3">
               {industries.map((ind) => {
                 const isSelected = selectedIndustry === ind.name;
                 const IconComponent = ind.icon;
@@ -1386,10 +1453,10 @@ export default function App() {
       {/* --- PREMIUM INTERACTIVE STRATEGY CALL BOOKING WIZARD MODAL --- */}
       {isModalOpen && (
         <div id="booking-modal" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
-          <div className="relative w-full max-w-xl glass-card rounded-[24px] border border-[#236EC1]/30 shadow-[0_0_50px_rgba(35,110,193,0.3)] overflow-hidden">
+          <div className="relative w-full max-w-xl max-h-[90vh] flex flex-col bg-[#0b0b0b] glass-card rounded-[24px] border border-[#236EC1]/30 shadow-[0_0_50px_rgba(35,110,193,0.3)] overflow-hidden">
             
             {/* Modal Header */}
-            <div className="flex items-center justify-between p-6 border-b border-white/5 bg-[#111111]/80">
+            <div className="flex items-center justify-between p-6 border-b border-white/5 bg-[#111111]/80 flex-shrink-0">
               <div className="flex items-center gap-3">
                 <NexoraLogo showText={false} size="sm" />
                 <div>
@@ -1407,7 +1474,7 @@ export default function App() {
 
             {/* Steps Progress Indicator */}
             {bookingStep <= 3 && (
-              <div className="flex h-1 bg-white/5 w-full">
+              <div className="flex h-1 bg-white/5 w-full flex-shrink-0">
                 <div 
                   className="h-full bg-gradient-to-r from-[#236EC1] to-[#3B82F6] transition-all duration-300"
                   style={{ width: `${(bookingStep / 3) * 100}%` }}
@@ -1416,7 +1483,7 @@ export default function App() {
             )}
 
             {/* Modal Body / Forms */}
-            <form onSubmit={handleBookingSubmit} className="p-6">
+            <form onSubmit={handleBookingSubmit} className="p-6 overflow-y-auto flex-1">
               
               {/* STEP 1: Business Profile */}
               {bookingStep === 1 && (
@@ -1538,7 +1605,7 @@ export default function App() {
                             key={day.raw}
                             type="button"
                             onClick={() => setFormData({ ...formData, selectedDate: day.raw })}
-                            className={`p-2.5 rounded-lg border text-center flex flex-col justify-between h-20 cursor-pointer transition-all ${
+                            className={`p-1.5 sm:p-2.5 rounded-lg border text-center flex flex-col justify-between h-20 cursor-pointer transition-all ${
                               isChosen 
                                 ? 'bg-[#236EC1]/20 border-[#236EC1] text-white font-bold' 
                                 : 'bg-[#141414] border-white/5 text-white/60 hover:border-white/20'
