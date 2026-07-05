@@ -1017,7 +1017,7 @@ export default function App() {
                 </div>
                 
                 <div className="mb-6">
-                  <span className="text-3xl sm:text-4xl font-extrabold text-white">₹5,000</span>
+                  <span className="text-3xl sm:text-4xl font-extrabold text-white">₹6999</span>
                   <span className="text-white/50 text-sm font-light"> / Month</span>
                 </div>
 
@@ -1078,7 +1078,7 @@ export default function App() {
                 </div>
 
                 <div className="mb-6">
-                  <span className="text-3xl sm:text-4xl font-extrabold text-white">₹10,000</span>
+                  <span className="text-3xl sm:text-4xl font-extrabold text-white">₹9999</span>
                   <span className="text-white/50 text-sm font-light"> / Month</span>
                 </div>
 
