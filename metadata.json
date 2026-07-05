@@ -1,0 +1,6 @@
+{
+  "name": "Nexora Studio",
+  "description": "Premium Meta Ads agency delivering high-quality lead generation and performance marketing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
